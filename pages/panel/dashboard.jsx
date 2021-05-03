@@ -1,11 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useContext } from "react";
 import Layout from "../../components/Layout";
-import AuthContext from "../../stores/authContext";
 
 export default function index() {
-    const context = useContext(AuthContext)
-    console.log(context);
     return (
         <Layout title="Admin Panel" main="wrapper-panel">
             <div className="row">

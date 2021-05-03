@@ -1,0 +1,13 @@
+# POST http://localhost:3000/api/hello HTTP/1.1
+###
+POST http://localhost:3000/api/siswa/create HTTP/1.1
+
+{
+    "nis": "00734518008",
+    "name": "Jhon Doe",
+    "sex": "Male",
+    "pod": "Jakarta",
+    "bod": "09-10-1996",
+    "religion": "Islam",
+    "address": "Jl. Patimura Selatan Kec Senen"
+}

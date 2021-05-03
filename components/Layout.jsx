@@ -3,31 +3,34 @@ import Head from 'next/head';
 import Header from './Header';
 import { useRouter } from 'next/router'
 import { useState } from 'react';
-import { AuthContextProvider } from '../stores/authContext';
+import useAuth, { ProtectRoute } from '../helpers/Context';
 
-export default function Layout({main, title, children}) {
+function Layout({main, title, children}) {
+    const {user} = useAuth()
     const router = useRouter()
     const [side, setSide] = useState(true)
     const handleSidebar = () => {
         setSide(!side)
     }
     return (
-        <AuthContextProvider>
+        <ProtectRoute>
             <Head>
                 <title>{title}</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <div className="container-fluid">
                 <div className="row">
-                    <Sidebar handleSidebar={handleSidebar} {...router} />
+                    <Sidebar handleSidebar={handleSidebar} {...router} {...user} />
                     <main className={main + ` trantition2`}>
-                        <Header />
+                        <Header {...user} />
                         <div className="content" style={{marginTop: "-70px"}}>
                             {children}
                         </div>
                     </main>
                 </div>
             </div>
-        </AuthContextProvider>
+        </ProtectRoute>
     )
 }
+
+export default Layout;

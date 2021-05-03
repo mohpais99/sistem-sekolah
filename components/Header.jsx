@@ -1,17 +1,19 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { useRouter } from 'next/router';
 import Breadcrumbs from "./Breadcrumbs";
+import useAuth from '../helpers/Context';
+import * as G from '../helpers/Global';
 
-export default function Header() {
-    const router = useRouter()
+export default function Header(props) {
+    const { logout } = useAuth();
     const [show, setShow] = useState(false)
     const handleProfile = () => {
         setShow(!show)
     }
     const handleLogOut = (e) => {
         e.preventDefault()
-        router.push('/')
+        // router.push('/')
+        logout()
     }
     return (
         <div className="head bg-success-custom">
@@ -28,8 +30,8 @@ export default function Header() {
                                         <img src="/avatar.svg" alt="" width="30" />
                                     </div>
                                     <div className="col-auto my-auto d-none d-lg-block">
-                                        <p className="mb-0 poppins-semi-bold font-12 text-dark">Moh. Pais</p>
-                                        <p className="mb-0 text-secondary font-10">Guru</p>
+                                        <p className="mb-0 poppins-semi-bold font-12 text-dark">{G.capitalize(props.name)}</p>
+                                        <p className="mb-0 text-secondary font-10">{G.capitalize(props.role)}</p>
                                     </div>
                                 </div>
                             </button>

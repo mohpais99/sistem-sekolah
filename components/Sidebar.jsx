@@ -1,8 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import { useRouter } from 'next/router'
+import * as G from '../helpers/Global';
 
-export default function Sidebar({handleSidebar, pathname}) {
+export default function Sidebar({handleSidebar, pathname, name, role}) {
     const feature = require('./Routes').default
     const router = useRouter()
     return (
@@ -16,8 +17,8 @@ export default function Sidebar({handleSidebar, pathname}) {
                         <Image src="/avatar.svg" alt="Picture of the author" width="72" height="72" className="profile-img" />
                     </div>
                     <div className="side-info mt-2" >
-                        <h5 className="poppins-bold mb-0"><strong>Mohamad Pais</strong></h5>
-                        <span className="poppins-light">Guru Matematika</span>
+                        <h5 className="poppins-bold mb-0"><strong>{G.capitalize(name)}</strong></h5>
+                        <span className="poppins-light">{G.capitalize(role)}</span>
                     </div>
                 </div>
             </div>

@@ -380,13 +380,13 @@ main[class^="wrapper-panel"] {
 }
 
 .icon-card {
-  width: 3rem;
-  height: 3rem
+  width: 3rem !important;
+  height: 3rem !important
 }
 
 .icon-card i,
 .icon-card svg {
-  font-size: 2.25rem
+  font-size: 1.25rem !important
 }
 
 .icon-shape {
