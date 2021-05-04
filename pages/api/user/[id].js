@@ -6,8 +6,8 @@ export default async function handler(req, res) {
     try {
         const auth = await authorization(req, res);
         const {id} = req.query
-        const siswa = await db('users').where({ id }).first();
-        return res.status(200).json({data: siswa})
+        const user = await db('users').where({ id }).first();
+        return res.status(200).json({data: user})
     } catch (error) {
         res.status(500).json({error: error})
     }

@@ -5,7 +5,7 @@ import Materi from '../../components/MateriEntry'
 export default function materi() {
     const [tab, setTab] = useState('Materi')
     return (
-        <Layout title="Admin Panel" main="wrapper-panel">
+        <Layout title="Admin Panel | Materi" main="wrapper-panel">
             <div className="row">
                 <div className="col-xl-12">
                     <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">

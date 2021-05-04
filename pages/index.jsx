@@ -4,24 +4,24 @@ import { useState } from 'react';
 import useAuth from '../helpers/Context';
 
 export default function SignIn() {
-    const { user, isAuthenticated, login } = useAuth();
     const router = useRouter()
+    const { user, isAuthenticated, login } = useAuth();
     if (user && isAuthenticated) {
-        router.push('/panel/dashboard')
+        router.back()
     }
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         if (username === '' || password === '') {
             alert('tidak boleh kosong')
         } else {
-            login(username, password)
+            const log = await login(username, password)
+            if (log.user) {
+                router.push('/panel/dashboard')
+            }
         }
     }
-    // return null & false
-    // console.log(user, isAuthenticated);
-    
     return (
         <>
             <Head>

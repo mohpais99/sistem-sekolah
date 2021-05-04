@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from 'react'
 import Cookies from 'js-cookie'
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 
 //api here is an axios instance which has the baseURL set according to the env.
 import api from '../services/Api';
@@ -17,15 +17,14 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         async function loadUserFromCookies() {
             const cookies = Cookies.get('token')
-            if (cookies) {
+            if (cookies && !user) {
                 let {token} = JSON.parse(cookies)
                 console.log("Got a token in the cookies, let's see if it is valid")
                 api.defaults.headers.Authorization = `Bearer ${token}`
                 const { data: user } = await api.get('auth/get')
                 if (user) setUser(user.user);
-                router.push('/panel/dashboard')
+                setLoading(false)
             }
-            setLoading(false)
         }
         loadUserFromCookies()
     }, [])
@@ -38,8 +37,9 @@ export const AuthProvider = ({ children }) => {
             api.defaults.headers.Authorization = `Bearer ${token.token}`
             const { data: user } = await api.get('auth/get')
             setUser(user.user)
-            router.push('/panel/dashboard')
+            return user
         }
+        // return user.user
     }
     const logout = () => {
         Cookies.remove('token')
@@ -62,7 +62,7 @@ export default useAuth;
 
 export const ProtectRoute = ({ children }) => {
     const { isAuthenticated, isLoading, router } = useAuth();
-    if (isLoading|| !isAuthenticated){
+    if (isLoading || !isAuthenticated){
         return <LoadingScreen status={isAuthenticated} path={router.pathname} />;
     }
     return children;

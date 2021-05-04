@@ -5,6 +5,8 @@ import { useRouter } from 'next/router'
 import { useState } from 'react';
 import useAuth, { ProtectRoute } from '../helpers/Context';
 
+const feature = require('./Routes').default
+
 function Layout({main, title, children}) {
     const {user} = useAuth()
     const router = useRouter()
@@ -12,6 +14,10 @@ function Layout({main, title, children}) {
     const handleSidebar = () => {
         setSide(!side)
     }
+    // const handleRoute = () => {
+    //     const route = router.pathname.split("/")
+    //     const [path] = route.slice(2)
+    // }
     return (
         <ProtectRoute>
             <Head>
