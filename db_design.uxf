@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><diagram program="umlet" version="13.3">
+  <zoom_level>12</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>240</y>
+      <w>252</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>Table::users
+--
+-id 			(Int)
+-role 		(Varchar)
+-no_induk 	(int)
+-name 		(Varchar)
+-sex 			(Varchar)
+-pod 			(Varchar)
+-bod 			(Varchar)
+-religion 	(Varchar)
+-addres 		(Text)
+-c_at 		(timestamp)
+-u_at 		(timestamp)
+--
+/+AbstractOperation()/
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>0</y>
+      <w>252</w>
+      <h>204</h>
+    </coordinates>
+    <panel_attributes>Table::auths
+--
+-id 			(Int)
+-user_id 	(Int)
+-username 	(Varchar)
+-password 	(Varchar)
+-token 		(Varchar)
+-c_at 		(timestamp)
+-u_at 		(timestamp)
+--
+/+AbstractOperation()/
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>564</y>
+      <w>252</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>Table::lesson
+--
+-id 			(Int)
+-kd_mapel 	(int)
+-kelas 		(Varchar)
+-sex 			(Varchar)
+-pod 			(Varchar)
+-bod 			(Varchar)
+-religion 	(Varchar)
+-addres 		(Text)
+-c_at 		(timestamp)
+-u_at 		(timestamp)
+--
+/+AbstractOperation()/
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

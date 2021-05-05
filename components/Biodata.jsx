@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import * as G from '../helpers/Global';
 import api from '../services/Api';
 import Cookies from 'js-cookie'
+import Swal from 'sweetalert2';
 
 function Biodata(props) {
     const [bio, setBio] = useState(props)
     const handleChange = (e) => {
         setBio({ ...bio, [e.target.name]: e.target.value })
     }
-    // console.log(JSON.stringify(date));
     const handleSubmit = async (e) => {
         e.preventDefault()
         const cookies = Cookies.get('token')
@@ -19,7 +19,15 @@ function Biodata(props) {
             api.defaults.headers.Authorization = `Bearer ${token}`
             const { data: data } = await api.put(`user/update/${bio.id}`, bio)
             let {s, message} = data
-            alert(message)
+            if (s === 1) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
         }
     }
     return (
@@ -76,7 +84,12 @@ function Biodata(props) {
                                     <div className="form-group row">
                                         <label className="col-sm-2 col-form-label my-auto poppins-medium">Tanggal Lahir</label>
                                         <div className="col-sm-10">
-                                            <input className="form-control" type="date" name="bod" onChange={(e) => setBio({...bio, bod: JSON.stringify(new Date(e.target.value))})} value={bio.bod} />
+                                            <input 
+                                                name="bod" 
+                                                type="date" 
+                                                className="form-control" 
+                                                onChange={(e) => setBio({...bio, bod: JSON.stringify(new Date(e.target.value))})} 
+                                                value={JSON.parse(bio.bod)} />
                                         </div>
                                     </div>
                                 </div>

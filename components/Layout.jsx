@@ -14,10 +14,7 @@ function Layout({main, title, children}) {
     const handleSidebar = () => {
         setSide(!side)
     }
-    // const handleRoute = () => {
-    //     const route = router.pathname.split("/")
-    //     const [path] = route.slice(2)
-    // }
+    
     return (
         <ProtectRoute>
             <Head>

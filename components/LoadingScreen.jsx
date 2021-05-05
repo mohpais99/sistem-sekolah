@@ -1,8 +1,6 @@
-import { useRouter } from 'next/router';
-import React, {useEffect} from 'react';
+import React from 'react';
 
-export default function LoadingScreen({status, path}) {
-    const route = useRouter()
+export default function LoadingScreen() {
     return (
         <div className="loader-div">
             <span className="loader">

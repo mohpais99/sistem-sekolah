@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { useState } from 'react';
 import useAuth from '../helpers/Context';
+import Swal from 'sweetalert2';
 
 export default function SignIn() {
     const router = useRouter()
@@ -9,15 +10,24 @@ export default function SignIn() {
     if (user && isAuthenticated) {
         router.back()
     }
+    const [loading, setLoading] = useState(false)
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setLoading(true)
         if (username === '' || password === '') {
             alert('tidak boleh kosong')
         } else {
             const log = await login(username, password)
             if (log.user) {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: `Selamat Datang, ${log.user.name}`,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
                 router.push('/panel/dashboard')
             }
         }
@@ -46,7 +56,20 @@ export default function SignIn() {
                                             <label htmlFor="password">Kata Sandi</label>
                                             <input type="password" onChange={(e) => setPassword(e.target.value)} name="password" id="password" className="form-control" />
                                         </div>
-                                        <button type="submit" className="btn btn-sm btn-block btn-warning text-white py-3 my-4 poppins-bold text-uppercase radius-7">Masuk</button>
+                                            {
+                                                !loading ? 
+                                                    (
+                                                        <button type="submit" className="btn btn-sm btn-block btn-warning text-white py-3 my-4 poppins-bold text-uppercase radius-7">Masuk</button>
+                                                    )
+                                                :
+                                                    (
+                                                        <button className="btn btn-sm btn-block btn-warning text-white py-3 my-4 poppins-bold text-uppercase radius-7" type="button" disabled>
+                                                            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                            <span className="ml-1">Loading...</span>
+                                                        </button>
+                                                    )
+                                                
+                                            }
                                     </div>
                                     {/* <div className="card-footer py-3 bg-transparent">
                                         <a href="">Don't have account?</a>

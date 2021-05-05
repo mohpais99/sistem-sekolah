@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import Router, { useRouter } from 'next/router'
+import Swal from 'sweetalert2';
 
 //api here is an axios instance which has the baseURL set according to the env.
 import api from '../services/Api';
@@ -45,12 +46,19 @@ export const AuthProvider = ({ children }) => {
         Cookies.remove('token')
         setUser(null)
         delete api.defaults.headers.Authorization
+        Swal.fire({
+            position: 'top-end',
+            title: `Sampai Jumpa!`,
+            icon: 'info',
+            showConfirmButton: false,
+            timer: 1500
+        })
         router.push('/')
     }
 
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, loading, logout, router }}>
+        <AuthContext.Provider value={{ isAuthenticated: !!user, user, login, loading, logout }}>
             {children}
         </AuthContext.Provider>
     )
@@ -61,9 +69,18 @@ const useAuth = () => useContext(AuthContext)
 export default useAuth;
 
 export const ProtectRoute = ({ children }) => {
-    const { isAuthenticated, isLoading, router } = useAuth();
+    const { isAuthenticated, isLoading } = useAuth();
+    useEffect(() => {
+        async function checkRole() {
+            const cookies = Cookies.get('token')
+            if (!cookies && !isAuthenticated) {
+                Router.push('/')
+            }
+        }
+        checkRole()
+    }, [])
     if (isLoading || !isAuthenticated){
-        return <LoadingScreen status={isAuthenticated} path={router.pathname} />;
+        return <LoadingScreen />;
     }
     return children;
 };

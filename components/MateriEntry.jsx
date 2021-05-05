@@ -1,11 +1,13 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
+import useAuth from '../helpers/Context'
 
 export default function Materi() {
+    const {user} = useAuth()
     return (
         <div className="row">
             <div className="col-sm-12">
-                <div className="float-left">
+                <div className={`float-left ${user.role === 'siswa' ? 'd-none' : ''}`} >
                     <div className="btn btn-warning text-white">
                         + Unggah Materi
                     </div>

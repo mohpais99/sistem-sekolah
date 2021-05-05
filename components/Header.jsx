@@ -5,6 +5,7 @@ import Breadcrumbs from "./Breadcrumbs";
 import useAuth from '../helpers/Context';
 import * as G from '../helpers/Global';
 import { useRouter } from "next/router";
+import Swal from 'sweetalert2';
 
 export default function Header(props) {
     const router = useRouter()
@@ -18,7 +19,21 @@ export default function Header(props) {
     }
     const handleLogOut = (e) => {
         e.preventDefault()
-        logout()
+        Swal.fire({
+            title: 'Apakah anda yakin ingin keluar?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yakin!',
+            cancelButtonText: 'Batalkan!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                logout()
+            }
+        })
+        // e.preventDefault()
+        // logout()
     }
     return (
         <div className="head bg-success-custom">
@@ -31,7 +46,7 @@ export default function Header(props) {
                         <div className="row">
                             <div className="col my-auto dropdown">
                                 <a className="text-white font-16" role="button" onClick={handleNotif}>
-                                    <FontAwesomeIcon icon={["fas", "bell"]} />
+                                    <FontAwesomeIcon icon={["fas", "bell"]} style={{width: "16px"}} />
                                 </a>
                                 <div className={`dropdown-menu dropdown-menu-xl dropdown-menu-right py-0 overflow-hidden ${!show.notification ? "" : "show"}`} style={{width: "450px"}}>
                                     <div className="px-3 py-3">
@@ -90,7 +105,7 @@ export default function Header(props) {
                                             <span className="my-auto">Pengaturan</span>
                                         </a>
                                         <div className="dropdown-divider"></div>
-                                        <a className="dropdown-item text-danger text-left d-flex" onClick={handleLogOut} >
+                                        <a className="dropdown-item text-danger text-left d-flex cursor" onClick={handleLogOut} >
                                             <FontAwesomeIcon icon={["fas", "sign-out-alt"]} className="mr-2" style={{width: "12px"}} />
                                             <span className="my-auto">Logout</span>
                                         </a>

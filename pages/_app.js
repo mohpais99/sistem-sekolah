@@ -8,6 +8,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import '../styles/breadcrumbs.scss';
 import '../styles/loader.css';
 import { AuthProvider } from '../helpers/Context';
+import 'sweetalert2/src/sweetalert2.scss'
 
 library.add(fab, fas)
 
